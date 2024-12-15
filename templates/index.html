@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Breakout Analysis Tool</title>
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Breakout Analysis Tool</h1>
+        <form action="/generate_report" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="ticker">Ticker:</label>
+                <input type="text" id="ticker" name="ticker" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="volume_threshold">Volume Threshold (%):</label>
+                <input type="number" id="volume_threshold" name="volume_threshold" class="form-control" value="200" required>
+            </div>
+            <div class="form-group">
+                <label for="price_change_threshold">Price Change Threshold (%):</label>
+                <input type="number" id="price_change_threshold" name="price_change_threshold" class="form-control" value="2" required>
+            </div>
+            <div class="form-group">
+                <label for="holding_period">Holding Period (Days):</label>
+                <input type="number" id="holding_period" name="holding_period" class="form-control" value="10" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Generate Report</button>
+        </form>
+    </div>
+</body>
+</html>
