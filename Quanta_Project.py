@@ -57,6 +57,11 @@ def simulate_returns(data, breakout_days, holding_period):
             continue
     return pd.DataFrame(results)
 
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/generate_report', methods=['POST'])
 def generate_report():
     # Get user inputs from the form
