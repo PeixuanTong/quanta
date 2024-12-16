@@ -59,13 +59,15 @@ def simulate_returns(data, breakout_days, holding_period):
         buy_date = index
         try:
             sell_date = data.index[data.index.get_loc(buy_date) + holding_period]
-            buy_price = row['Close']
-            sell_price = data.loc[sell_date, 'Close']
-            return_value = (sell_price - buy_price) / buy_price * 100  # Calculate return
+            buy_price = float(row['Close'])  # Ensure numeric value
+            sell_price = float(data.loc[sell_date, 'Close'])  # Ensure numeric value
+            
+            # Calculate the return and ensure it's clean
+            return_value = round((sell_price - buy_price) / buy_price * 100, 6)
             results.append({
-                'Buy_Date': buy_date,
-                'Sell_Date': sell_date,
-                'Return (%)': round(return_value, 6)  # Clean numerical return
+                'Buy_Date': buy_date.strftime('%Y-%m-%d'),  # Clean date format
+                'Sell_Date': sell_date.strftime('%Y-%m-%d'),
+                'Return (%)': return_value
             })
         except IndexError:
             continue
