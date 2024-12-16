@@ -61,10 +61,11 @@ def simulate_returns(data, breakout_days, holding_period):
             sell_date = data.index[data.index.get_loc(buy_date) + holding_period]
             buy_price = row['Close']
             sell_price = data.loc[sell_date, 'Close']
+            return_value = (sell_price - buy_price) / buy_price * 100  # Calculate return
             results.append({
                 'Buy_Date': buy_date,
                 'Sell_Date': sell_date,
-                'Return (%)': (sell_price - buy_price) / buy_price * 100
+                'Return (%)': round(return_value, 6)  # Clean numerical return
             })
         except IndexError:
             continue
