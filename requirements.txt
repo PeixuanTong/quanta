@@ -1,3 +1,4 @@
 ﻿flask
 pandas
 yfinance
+datetime
