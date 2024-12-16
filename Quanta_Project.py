@@ -25,7 +25,7 @@ def fetch_stock_data(ticker, start_date, end_date, holding_period):
 
 # Function to calculate breakout days
 
-def calculate_breakout_days(data, volume_threshold, price_change_threshold):
+def calculate_breakout_days(data, volume_threshold, price_change_threshold,holding_period):
     if len(data) < 20:
         raise ValueError("Data must have at least 20 rows to calculate rolling averages.")
 
@@ -35,7 +35,7 @@ def calculate_breakout_days(data, volume_threshold, price_change_threshold):
     data['Pct_Change'] = data['Close'].pct_change() * 100
 
     # Keep rows where '20d_avg_volume' is not NaN
-    filtered_data = data.iloc[20:-20,:]
+    filtered_data = data.iloc[20:-holding_period,:]
     # Calculate breakout conditions
     filtered_data['Breakout'] = filtered_data['Volume'].squeeze() > (
     volume_threshold * filtered_data['20d_avg_volume'].squeeze()
@@ -86,8 +86,8 @@ def generate_report():
     holding_period = int(request.form['holding_period'])
 
     # Fetch and process stock data
-    data = fetch_stock_data(ticker, start_date, end_date)
-    breakout_days = calculate_breakout_days(data, volume_threshold / 100, price_change_threshold)
+    data = fetch_stock_data(ticker, start_date, end_date,holding_period)
+    breakout_days = calculate_breakout_days(data, volume_threshold / 100, price_change_threshold,holding_period)
     results = simulate_returns(data, breakout_days, holding_period)
 
     # Check if results are empty
