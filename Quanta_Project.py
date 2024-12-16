@@ -4,12 +4,25 @@ import yfinance as yf
 
 app = Flask(__name__)
 
+from datetime import datetime, timedelta
+
+app = Flask(__name__)
+
 # Function to fetch stock data
-def fetch_stock_data(ticker, start_date, end_date):
-    data = yf.download(ticker, start=start_date, end=end_date)
+def fetch_stock_data(ticker, start_date, end_date, holding_period):
+    # Convert input strings to datetime objects
+    start_date_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_date_dt = datetime.strptime(end_date, "%Y-%m-%d")
+
+    # Adjust dates: 20 days before start_date and holding_period days after end_date
+    adjusted_start_date = (start_date_dt - timedelta(days=20)).strftime("%Y-%m-%d")
+    adjusted_end_date = (end_date_dt + timedelta(days=holding_period)).strftime("%Y-%m-%d")
+
+    # Download data using adjusted dates
+    data = yf.download(ticker, start=adjusted_start_date, end=adjusted_end_date)
+
     return data
 
-# Function to calculate breakout days
 # Function to calculate breakout days
 
 def calculate_breakout_days(data, volume_threshold, price_change_threshold):
