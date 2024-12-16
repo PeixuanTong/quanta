@@ -2,12 +2,21 @@
 <html>
 <head>
     <title>Breakout Analysis Tool</title>
-    <!-- Bootstrap CSS for styling -->
+    <!-- Add Bootstrap for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Breakout Analysis Tool</h1>
+        
+        <!-- Display the message if it exists -->
+        {% if message %}
+        <div class="alert alert-warning text-center" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <!-- Input form -->
         <form action="/generate_report" method="post" class="mt-4">
             <div class="form-group">
                 <label for="ticker">Ticker:</label>
@@ -38,3 +47,4 @@
     </div>
 </body>
 </html>
+
